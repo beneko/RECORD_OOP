@@ -1,7 +1,7 @@
 <?php
 $title = 'Modification';
 include '../views/header.php';
-include '../controlers/update_script.php';
+include '../controller/update_script.php';
 ?>
 <div class="container">
     <div class="row mx-2">

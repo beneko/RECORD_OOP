@@ -3,7 +3,7 @@ $title = 'Ajouter une disque';
 include 'header.php';
 require '../model/config.php';
 $artists = $crud->getArtistList();
-include '../controlers/add_script.php';
+include '../controller/add_script.php';
 ?>
 <div class="container">
     <div class="row mx-2">

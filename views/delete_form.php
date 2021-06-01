@@ -1,7 +1,10 @@
 <?php
+var_dump($_SERVER);
+die;
+    define(ROOT, str_replace('index.php', '', $_SERVER['script_filename']));
 $title = 'Suppression';
 include 'header.php';
-include '../controlers/delete_script.php';
+include '../controller/delete_script.php';
 ?>
 <div class="container">
     <div class="row">
