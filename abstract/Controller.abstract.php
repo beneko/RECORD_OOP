@@ -1,15 +1,15 @@
 <?php
     abstract class Controller {
 
-        public function LoadModel(string $model){
+        // Mthode to load Model
+        protected function LoadModel(string $model){
             require_once (ROOT . '/model/' . $model . '.class.php');
-            return new $model;
         }
 
-        public function render(string $file , array $data= null){
+        // Mthode to create page view
+        protected function render(string $file , array $result){
 
-            extract($data);
-
+            
             ob_start();
             require(ROOT . '/views/'.strtolower(get_class($this)).'/'. $file .'.php');
             $content = ob_get_clean();

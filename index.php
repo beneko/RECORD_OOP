@@ -1,14 +1,15 @@
 <?php
     // difine the root of server
     define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-    require_once (ROOT.'/abstract/Controller.class.php');
-    require_once (ROOT.'/abstract/Model.class.php');
+    // load the abstract classes
+    require_once (ROOT.'/abstract/Controller.abstract.php');
+    require_once (ROOT.'/abstract/Model.abstract.php');
     // get the url of the page
     $uri = $_SERVER['REQUEST_URI'];
     // cut the url and put it into an array
     $path = explode( '/' , $uri);
     // take the first parameter if exist
-    if($path[1] != 0){
+    if(!$path[1] == 0){
         $class = ucfirst($path[1]);
         // take the second parameter if exist
         $method = isset($path[2]) ? $path[2] : 'index';
@@ -30,6 +31,5 @@
             header('Location:');
         }
     } else {
-        require_once (ROOT.'/controller/Home.class.php');
-        $home->$index();
+        header('Location:/Discs/index');
     }
