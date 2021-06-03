@@ -1,8 +1,3 @@
-<?php
-$title = 'Modification';
-include '../views/header.php';
-include '../controller/update_script.php';
-?>
 <div class="container">
     <div class="row mx-2">
     <?php 
@@ -85,17 +80,5 @@ include '../controller/update_script.php';
             <?php
             }
         ?>
-        <?php
-        } else {
-            ?>
-            <div class="container">
-                <h1 class="text-danger my-5" >La page que vous cherchiez n'est pas trouvée!</h1>
-            </div>
-        <?php
-        }
-    ?>
     </div>
 </div>
-<?php
-    include '../views/footer.php';
-?>

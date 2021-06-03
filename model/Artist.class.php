@@ -12,7 +12,7 @@ class Artist extends Model
     function getArtistList(){
         try {
             $sql = "SELECT `artist_id`, `artist_name` FROM `artist`";
-            $result=$this->db->query($sql);
+            $result=$this->_connect->query($sql);
             $artists = $result->fetchAll(PDO::FETCH_OBJ);
             return $artists;
         } catch (PDOException $e) {

@@ -1,37 +1,6 @@
-<?php
-$title = 'Ajouter une disque';
-include 'header.php';
-require '../model/config.php';
-$artists = $crud->getArtistList();
-include '../controller/add_script.php';
-?>
 <div class="container">
     <div class="row mx-2">
-        <?php 
-            if(isset($formError) && isset($fileError) && sizeof($formError) === 0 && sizeof($fileError) === 0 && isset($_POST['submit'])){
-                // if there is no error
-                // declare some variables to take the input values
-                $disc_title = htmlspecialchars($_POST['disc_title']);
-                $disc_year = htmlspecialchars($_POST['disc_year']);
-                $disc_label = htmlspecialchars($_POST['disc_label']);
-                $disc_genre = htmlspecialchars($_POST['disc_genre']);
-                $disc_price = htmlspecialchars($_POST['disc_price']);
-                $artist_id = htmlspecialchars($_POST['artist_id']);
-                // extract the extension of the picture
-                $extension = substr(strrchr($_FILES['disc_picture']['name'], "."), 1);
-                // rename it and replace it to the target directory
-                $target_dir ='../assets/img/';      
-                $disc_picture = $disc_title.".".$extension;
-                $new_name = $target_dir.$disc_picture;
-                move_uploaded_file( $_FILES['disc_picture']['tmp_name'] , $new_name);
-                // call addDisc method to add new disc to database
-                $insert = $crud->addDisc($disc_title, $disc_year, $disc_picture, $disc_label, $disc_genre, $disc_price, $artist_id);
-                if($insert){
-                    // redirect to home page
-                    header("Location:../");
-                }
-            } else {
-                ?>
+
                 <h1>Ajouter un vinyle</h1>
                 <form action="#" method="post" enctype="multipart/form-data">
                     <div class="row">
@@ -75,6 +44,3 @@ include '../controller/add_script.php';
         ?>
     </div>
 </div>
-<?php
-    include '../views/footer.php';
-?>

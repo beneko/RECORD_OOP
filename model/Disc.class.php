@@ -34,14 +34,14 @@ class Disc extends Model
     //Method to get the details of a disc with artist name
     public function getDiscDetails($discId){
         try {
-            $sql = "SELECT `disc_title`, `disc_year`, `disc_picture`, `disc_label`, `disc_genre`, `artist_name` , `disc_price` 
+            $sql = "SELECT `disc_id` , `disc_title`, `disc_year`, `disc_picture`, `disc_label`, `disc_genre`, `artist_name` , `disc_price` 
             FROM `disc`,`artist` 
             WHERE `disc`.`artist_id` = `artist`.`artist_id` 
             AND `disc_id`=:disc_id";
             $result=$this->_connect->prepare($sql);
             $result->bindparam(':disc_id', $discId);
             $result->execute();
-            $details=$result->fetch();
+            $details = $result->fetch();
             return $details;
         } catch (PDOException $e) {
             // echo $e->getMessage();

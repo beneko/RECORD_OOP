@@ -4,7 +4,7 @@
 <div class="container">
     <div class="d-flex my-3">
         <h1>Liste des disques</h1>
-        <div class="ms-auto"><a href="views/add_form.php" class="btn btn-primary">Ajouter</a></div>
+        <div class="ms-auto"><a href="add" class="btn btn-primary">Ajouter</a></div>
     </div>
     
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-4">
@@ -20,7 +20,7 @@
                     <p class="card-text"><strong>Label:</strong><?= $disc['disc_label'] ?></p>
                     <p class="card-text"><strong>Year:</strong><?= $disc['disc_year'] ?></p>
                     <p class="card-text"><strong>Genre:</strong><?= $disc['disc_genre'] ?></p>
-                    <a href="views/details.php?disc_id=<?= $disc['disc_id'] ?>" class="btn btn-primary">Détails</a>
+                    <a href="details/<?= $disc['disc_id'] ?>" class="btn btn-primary">Détails</a>
                 </div>
             </div>
         </div>

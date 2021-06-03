@@ -21,8 +21,14 @@
             $class = new $class;
             // Checks if the class method exists
             if(method_exists($class , $method)){
-                // call the class method
-                $class->$method();
+
+                // unset 3 first variable in path
+                unset($path[0]);
+                unset($path[1]);
+                unset($path[2]);
+                // call the class method with argument
+                call_user_func_array([$class , $method] , $path);
+                
             }
         } else {
             // Set the HTTP response code(404)
