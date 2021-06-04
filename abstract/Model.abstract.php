@@ -5,7 +5,7 @@
             private $host = '127.0.0.1';
             private $name = 'record';
             private $user = 'root';
-            private $pass = 'root';
+            private $pass = '';
             private $charset='utf8';
             private $dsn;
 
@@ -13,6 +13,7 @@
 
             public string $table;
             public string $id;
+            
             // Methods
 
             // Method to get connection to the database

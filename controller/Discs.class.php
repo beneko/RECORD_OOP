@@ -13,7 +13,9 @@ class Discs extends Controller
 
         // var_dump($result);
 
-        $this->render('index', $result);
+        $this->render('index', [
+            'discs' => $result
+        ]);
 
     }
 
@@ -27,21 +29,31 @@ class Discs extends Controller
 
         // var_dump($result);
 
-        $this->render('details', $result);
+        if($result){
 
+            $this->render('details', [
+             'details' => $result
+            ]);
+
+        } else {
+
+            $this->render('details', []);
+
+        }
+        
     }
 
-        public function add() {
+    public function add() {
 
-        $this->loadModel('Artist');
+        // $this->loadModel('Artist');
 
-        $artist = new Artist;
+        // $artist = new Artist;
 
-        $artists = $artist->getArtistList();
+        // $artists = $artist->getArtistList();
 
-        // var_dump($result);
+        // // var_dump($result);
 
-        $this->render('add', $artists);
+        // $this->render('add', $artists);
 
         // if(isset($_POST['submit'])){
 
@@ -121,26 +133,85 @@ class Discs extends Controller
 
         // }
 
-        // public function update($id) {
-
-        //     // load model class
-        //     $this->loadModel('Disc');
-        //     // instaciate model
-        //     $disc = new Disc;
-        //     // load functions class 
-        //     $this->LoadFunctions();
-        //     $funcions = new Functions;
-        //     if(isset($_GET['disc_id'])){
-        //         $discId = $_GET['disc_id'];
-        //         $details = $crud->getDiscDetails($discId);
-        //         // if the form submited
-        //         if(isset($_POST['submit'])){
-        //             $disc_id = $_POST['disc_id'];
-        //             $delete = $crud->deleteDisc($disc_id);
-        //             // if the disc deleted successfully
+    public function update($id) {
         
+        $this->loadModel('Disc');
+        $disc = new Disc;
 
-        // }  
+        $result = $disc->getDiscDetails($id);
 
+        $this->loadController('Artists');
+        $artist = new Artists;
+        
+        $artists = $artist->index();
 
+        if(isset($_POST['submit'])){
+
+            // load functions class 
+            $this->LoadController('Form');
+            $form = new Form;
+            $form->validUpdateForm([
+                'post' => $_POST,
+                'file' => $_FILES
+                ]);
+                
+            if(sizeof($form->formError) === 0 && sizeof($form->fileError) === 0){
+                // if there is no error
+                // declare some variables to take the input values
+                $disc_id = htmlspecialchars($_POST['disc_id']);
+                $disc_title = htmlspecialchars($_POST['disc_title']);
+                $disc_year = htmlspecialchars($_POST['disc_year']);
+                $disc_label = htmlspecialchars($_POST['disc_label']);
+                $disc_genre = htmlspecialchars($_POST['disc_genre']);
+                $disc_price = htmlspecialchars($_POST['disc_price']);
+                $artist_id = htmlspecialchars($_POST['artist_id']);
+                // if new picture uploaded or not
+                if($_FILES['disc_picture']['error'] === 4 ){
+                    $disc_picture = $_POST['disc_picture'];
+                } else {
+                    // extract the extension of the picture
+                    $extension = substr(strrchr($_FILES['disc_picture']['name'], "."), 1);
+                    // rename it and replace it to the target directory
+                    $target_dir = ROOT.'/assets/img/';      
+                    $disc_picture = $disc_title.".".$extension;
+                    $new_name = $target_dir.$disc_picture;
+                    move_uploaded_file( $_FILES['disc_picture']['tmp_name'] , $new_name);
+                }
+                // call updateDisc method
+                $added = $disc->updateDisc($disc_id, $disc_title, $disc_year, $disc_picture, $disc_label, $disc_genre, $disc_price, $artist_id);
+                // if added successfully
+                if($added){
+                    // get new details
+                    $result = $disc->getDiscDetails($id);
+                    $this->render('details', [
+                        'details' => $result
+                       ]);
+                }
+            }
+            else{
+                $this->render('update', [
+                    'details' => $_POST ,
+                    'artists'  => $artists,
+                    'formError' => $form->formError,
+                    'fileError' => $form->fileError
+                ]);
+            }
+        } else {
+
+            if($result){
+
+                $this->render('update', [
+                    'details' => $result ,
+                    'artists'  => $artists
+                ]);
+    
+            } else {
+    
+                $this->render('update', []);
+    
+            }
+
+        }
+    }
+ 
 }

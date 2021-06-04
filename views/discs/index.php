@@ -9,7 +9,7 @@
     
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-4">
         <?php
-        foreach($result as $disc){
+        foreach($discs as $disc){
         ?>
         <div class="col">
             <div class="card">

@@ -4,10 +4,15 @@ class Artists extends Controller
 {
 
     public function index() {
-        $disc = $this->loadModel('Artist');
-        $discs = $disc->showAll();
-        $this->render('index', [
-            'discs' => $discList
-        ]);
+
+        $this->loadModel('Artist');
+
+        $artist = new Artist;
+
+        $result = $artist->getArtistList();
+
+        return $result;
+
     }
+    
 }
