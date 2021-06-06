@@ -1,3 +1,6 @@
+<?php
+    $pageTitle ='Add a disc';
+?>
 <div class="container">
     <div class="row mx-2">
         <h1>Ajouter un vinyle</h1>

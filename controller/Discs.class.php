@@ -84,16 +84,22 @@ class Discs extends Controller
                 $disc = new Disc;
                 // call updateDisc method
                 $added = $disc->addDisc($disc_title, $disc_year, $disc_picture, $disc_label, $disc_genre, $disc_price, $artist_id);
+                if($added === false)
+                {
+                    $this->render('add', [
+                        'artists'  => $artists,
+                        'formError' => $form->formError,
+                        'fileError' => $form->fileError
+                    ]);
 
-                // if added successfully
-                if($added){
-
-                    // get new details
-                    $result = $disc->getDiscDetails($added);
-                    $this->render('details', [
-                        'details' => $result
-                       ]);
                 }
+                else
+                {
+                    header('Location:/Discs/details/'.$added);
+                    die;
+                }
+                
+                
             }
             else
             {
@@ -162,15 +168,16 @@ class Discs extends Controller
                 // call updateDisc method
                 $updated = $disc->updateDisc($disc_id, $disc_title, $disc_year, $disc_picture, $disc_label, $disc_genre, $disc_price, $artist_id);
                 // if added successfully
-                if($updated){
-                    // get new details
-                    $result = $disc->getDiscDetails($id);
-                    $this->render('details', [
-                        'details' => $result
-                       ]);
+                if($updated)
+                {
+                   
+                    header('Location:/Discs/details/'.$id);
+                    die;
+
                 }
             }
-            else{
+            else
+            {
                 $this->render('update', [
                     'details' => $_POST ,
                     'artists'  => $artists,
@@ -180,20 +187,57 @@ class Discs extends Controller
             }
         } else {
 
-            if($result){
+            if($result)
+            {
 
                 $this->render('update', [
                     'details' => $result ,
                     'artists'  => $artists
                 ]);
     
-            } else {
+            }
+            else
+            {
     
                 $this->render('update', []);
     
             }
 
         }
+    }
+
+    public function delete($id) {
+
+        $this->loadModel('Disc');
+        $disc = new Disc;
+        $result = $disc->getDiscDetails($id);
+
+        if(isset($_POST['submit'])){
+
+            $delete = $disc->deleteDisc($id);
+
+            if($delete)
+            {
+                header('Location:/Discs/index');
+                die;
+            }
+            else
+            {
+                $this->render('delete', [
+                    'details' => $result
+                   ]);
+            }
+            
+        }
+        else
+        {
+
+            $this->render('delete', [
+                'details' => $result
+               ]);
+
+        }
+        
     }
  
 }

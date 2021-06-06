@@ -63,7 +63,8 @@ class Disc extends Model
             $result->bindparam(':disc_price', $disc_price);
             $result->bindparam(':artist_id', $artist_id);
             $result->execute();
-            return $this->_connect->lastInsertId();;
+            $id = $this->_connect->lastInsertId();
+            return $id;
         } catch (PDOException $e) {
             // echo $e->getMessage();
             return false;

@@ -1,5 +1,5 @@
 <?php
-    $pageTitle = isset($details['disc_title']) ? 'Update ' . $details['disc_title'] : 'disc not found!';;
+    $pageTitle = isset($details['disc_title']) ? 'Update ' . $details['disc_title'] : 'disc not found!';
 ?>
 <div class="container">
     <div class="row mx-2">
