@@ -5,7 +5,7 @@
             private $host = '127.0.0.1';
             private $name = 'record';
             private $user = 'root';
-            private $pass = '';
+            private $pass = 'root';
             private $charset='utf8';
             private $dsn;
 

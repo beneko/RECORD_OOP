@@ -30,5 +30,18 @@ class Form extends Controller
         $this->fileError = $functions->validFileOptional($this->inputFiles ,  $file);
 
     }
+
+    public function validAddForm(array $data) {
+
+        extract($data);
+
+        $this->LoadFunctions();
+
+        $functions = new Functions;
+
+        $this->formError = $functions->validForm($this->regex , $post);
+        $this->fileError = $functions->validFile($this->inputFiles ,  $file);
+
+    }
     
 }
