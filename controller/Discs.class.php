@@ -217,7 +217,9 @@ class Discs extends Controller
             $delete = $disc->deleteDisc($id);
 
             if($delete)
-            {
+            {   
+                $picture = ROOT.'/assets/img/'.$result['disc_picture'];
+                unlink($picture);
                 header('Location:/Discs/index');
                 die;
             }
